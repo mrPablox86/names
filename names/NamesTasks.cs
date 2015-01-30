@@ -20,6 +20,13 @@ namespace names
 			Можно обращаться к свойствам NameData так names[0].Name 
 			Полностью аналогично тому, как вы обращаетесь к свойствам строки s.Length
 			*/
+
+            var date = names[0].BirthDate.Date;
+            var dayStart = new DateTime(date.Year, date.Month+1, 1);
+            var dayFinish = new DateTime(date.Year, date.Month, 1);
+            var lastDayInMonth = dayStart.Subtract(dayFinish);
+
+            Console.WriteLine(lastDayInMonth.Days);
 		}
 
 		public static void ShowBirthYearsStatisticsHistogram(NameData[] names)
