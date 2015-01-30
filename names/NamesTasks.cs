@@ -3,7 +3,7 @@
 namespace names
 {
 	class NamesTasks
-	{
+	{   
 		public static void ShowBirthDayMonthStatistics(NameData[] names)
 		{
 			Console.WriteLine("Статистика рождаемости по датам");
@@ -20,13 +20,30 @@ namespace names
 			Можно обращаться к свойствам NameData так names[0].Name 
 			Полностью аналогично тому, как вы обращаетесь к свойствам строки s.Length
 			*/
+            var countFirstDay = 0;
+            var countMiddleDay = 0;
+            var countLastDay = 0;
+                        
+            var k = 0;
+            while (k<names.Length)
+            {
+                var date = names[k].BirthDate.Date;                
+                var dayStart = new DateTime(date.Year, date.Month+1, 1);
+                var dayFinish = new DateTime(date.Year, date.Month, 1);
+                var lastDayInMonth = dayStart.Subtract(dayFinish);
+                var date2 = new DateTime(date.Year, date.Month, lastDayInMonth);
+                
 
-            var date = names[0].BirthDate.Date;
-            var dayStart = new DateTime(date.Year, date.Month+1, 1);
-            var dayFinish = new DateTime(date.Year, date.Month, 1);
-            var lastDayInMonth = dayStart.Subtract(dayFinish);
+                if(date.Day.CompareTo(lastDayInMonth) == 0)
+                    countLastDay++;
+                else if ( names[k].BirthDate.Day == 1 )
+                    countFirstDay++;
+                else
+                    countMiddleDay++;
+            }
+            countMiddleDay = countMiddleDay / (365 - 24);
+            Console.WriteLine("First day {0}, Last day {1}, Middle day {2}", countFirstDay, countLastDay, countMiddleDay);
 
-            Console.WriteLine(lastDayInMonth.Days);
 		}
 
 		public static void ShowBirthYearsStatisticsHistogram(NameData[] names)
