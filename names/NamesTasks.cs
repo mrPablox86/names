@@ -31,15 +31,20 @@ namespace names
                 var dayStart = new DateTime(date.Year, date.Month+1, 1);
                 var dayFinish = new DateTime(date.Year, date.Month, 1);
                 var lastDayInMonth = dayStart.Subtract(dayFinish);
-                var date2 = new DateTime(date.Year, date.Month, lastDayInMonth);
-                
+                //var date2 = new DateTime(date.Year, date.Month, lastDayInMonth.Days);
 
-                if(date.Day.CompareTo(lastDayInMonth) == 0)
-                    countLastDay++;
-                else if ( names[k].BirthDate.Day == 1 )
+                //if(date.Day.CompareTo(lastDayInMonth) == 0)
+                //    countLastDay++;
+                Console.WriteLine("day {0}, month {1}", lastDayInMonth, date.Month);
+
+                if ( names[k].BirthDate.Day == 1 )
                     countFirstDay++;
+                else if ( names[k].BirthDate.Day == lastDayInMonth.Days )
+                    countLastDay++;
                 else
                     countMiddleDay++;
+
+                k++;
             }
             countMiddleDay = countMiddleDay / (365 - 24);
             Console.WriteLine("First day {0}, Last day {1}, Middle day {2}", countFirstDay, countLastDay, countMiddleDay);
